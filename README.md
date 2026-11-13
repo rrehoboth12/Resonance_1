@@ -31,3 +31,4 @@ Open `index.html` directly or serve the folder with any static web server. The b
 ## Audio mapping
 
 The visualizer uses the Web Audio API `AnalyserNode` with an FFT size of `256`. It groups the returned spectrum bins into bass, mids, and treble ranges. Bass drives large pulse rings, mids guide color palette changes, and treble drives fine details and sparkle intensity. The mapping is documented in `js/visualizer.js`.
+<video src="https://drive.google.com/file/d/1J9D-G7MZP1GnZR_IO0UAKEOGd7HAU83F/view?usp=drive_link" controls width="100%"></video>
