@@ -1,0 +1,13 @@
+{
+  "name": "resonance-offline-player",
+  "version": "1.0.0",
+  "description": "A fully offline Electron music player with beat-reactive visuals.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "check": "node --check main.js && node --check preload.js && node --check js/app.js && node --check js/visualizer.js"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}

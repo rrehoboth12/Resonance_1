@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resonance | Offline Player</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark"><i></i><i></i><i></i></span>
+          <span>RESONANCE</span>
+        </div>
+
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <button class="nav-item active" type="button">
+            <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5v8a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>
+            Home
+          </button>
+          <button class="nav-item" type="button">
+            <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></svg>
+            Search
+          </button>
+          <button class="nav-item" type="button">
+            <svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M9 9h6M9 13h6"/></svg>
+            Your Library
+          </button>
+        </nav>
+
+        <div class="sidebar-label">YOUR COLLECTIONS</div>
+        <div class="collection-list">
+          <button class="collection active" type="button"><span class="collection-dot violet"></span><span><strong>All local tracks</strong><small id="trackCount">0 tracks</small></span></button>
+          <button class="collection" type="button"><span class="collection-dot lime"></span><span><strong>Recently played</strong><small>Made for late nights</small></span></button>
+          <button class="collection" type="button"><span class="collection-dot coral"></span><span><strong>Favorites</strong><small>Your hand-picked set</small></span></button>
+        </div>
+
+        <div class="sidebar-footer">
+          <span><b></b> OFFLINE MODE</span>
+          <small>No cloud. No tracking.</small>
+        </div>
+      </aside>
+
+      <main class="main-stage">
+        <header class="topbar">
+          <div class="topbar-title">
+            <p>LOCAL FREQUENCIES</p>
+            <h1>Your private soundspace</h1>
+          </div>
+          <div class="topbar-actions">
+            <label class="import-button browser-import">
+              <input id="filePicker" type="file" accept="audio/*" webkitdirectory multiple />
+              <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L8 8m4-4 4 4M5 13v6h14v-6"/></svg>
+              Import folder
+            </label>
+            <label class="import-button browser-import">
+              <input id="singleFilePicker" type="file" accept="audio/*" multiple />
+              <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L8 8m4-4 4 4M5 13v6h14v-6"/></svg>
+              Import file
+            </label>
+            <button class="import-button desktop-import" id="desktopImport" type="button">
+              <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L8 8m4-4 4 4M5 13v6h14v-6"/></svg>
+              Import folder
+            </button>
+            <button class="import-button desktop-import" id="desktopFileImport" type="button">
+              <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L8 8m4-4 4 4M5 13v6h14v-6"/></svg>
+              Import file
+            </button>
+            <button class="icon-button" aria-label="Settings" type="button">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.12 2.12-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1 1.55v.09h-3v-.09a1.7 1.7 0 0 0-1-1.55A1.7 1.7 0 0 0 8.86 19l-.06.06-2.12-2.12.06-.06A1.7 1.7 0 0 0 7.08 15a1.7 1.7 0 0 0-1.55-1H5.4v-3h.13a1.7 1.7 0 0 0 1.55-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06L8.8 5.94l.06.06a1.7 1.7 0 0 0 1.88.34 1.7 1.7 0 0 0 1-1.55V4.7h3v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.12 2.12-.06.06A1.7 1.7 0 0 0 19.4 10a1.7 1.7 0 0 0 1.55 1h.13v3h-.13a1.7 1.7 0 0 0-1.55 1Z"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <section class="visualizer-card" id="visualizerCard">
+          <canvas id="visualizer"></canvas>
+          <div class="noise"></div>
+          <div class="card-overlay">
+            <div class="visualizer-meta">
+              <span class="status-pill"><i></i> <span id="visualStatus">LIVE ANALYZER</span></span>
+              <span class="frequency-readout"><b id="frequencyValue">48</b> HZ BASS</span>
+            </div>
+            <div class="hero-copy">
+              <p>NOW RESONATING</p>
+              <h2 id="heroTitle">Import your frequencies</h2>
+              <span id="heroArtist">Choose a local music folder to begin</span>
+            </div>
+            <div class="spectrum-tags">
+              <span>BASS <b id="bassValue">00</b></span>
+              <span>MIDS <b id="midValue">00</b></span>
+              <span>TREBLE <b id="trebleValue">00</b></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="library-section">
+          <div class="section-heading">
+            <div>
+              <p>LIBRARY</p>
+              <h2>Local queue</h2>
+            </div>
+            <div class="library-actions">
+              <button class="text-button" id="shuffleButton" type="button">Shuffle queue</button>
+              <button class="text-button" id="clearButton" type="button">Clear queue</button>
+              <button class="queue-badge" type="button"><span id="queueCount">0</span> TRACKS</button>
+            </div>
+          </div>
+
+          <div class="empty-state" id="emptyState">
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24"><path d="M5 4h14v13H8l-3 3Z"/><path d="M9 9h6M9 12h4"/></svg>
+            </div>
+            <div>
+              <h3>Your queue is ready for music.</h3>
+              <p>Import a folder with MP3 or WAV files. Everything stays on this machine.</p>
+            </div>
+          </div>
+
+          <div class="track-table hidden" id="trackTable">
+            <div class="track-row track-header">
+              <span>#</span><span>TITLE</span><span>ALBUM</span><span>TIME</span><span></span>
+            </div>
+            <div id="trackList"></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="right-panel">
+        <div class="panel-topline">
+          <span>UP NEXT</span>
+          <button class="mini-icon" aria-label="More options" type="button">•••</button>
+        </div>
+        <div class="artwork-shell">
+          <div class="record-art" id="recordArt">
+            <div class="record-rings"></div>
+            <div class="record-label">
+              <span>R</span>
+              <i>LOCAL<br />PRESSING</i>
+            </div>
+          </div>
+        </div>
+        <div class="playing-details">
+          <p>PLAYING FROM LOCAL QUEUE</p>
+          <h2 id="sideTitle">No track selected</h2>
+          <span id="sideArtist">Import a folder to start</span>
+        </div>
+        <div class="audio-profile">
+          <div class="profile-header">
+            <span>AUDIO PROFILE</span>
+            <b>FFT 256</b>
+          </div>
+          <div class="profile-item"><span>Bass response</span><div><i id="bassMeter"></i></div></div>
+          <div class="profile-item"><span>Mid presence</span><div><i id="midMeter"></i></div></div>
+          <div class="profile-item"><span>Treble air</span><div><i id="trebleMeter"></i></div></div>
+        </div>
+        <div class="next-track">
+          <span>NEXT IN QUEUE</span>
+          <strong id="nextTitle">Waiting for local tracks</strong>
+          <small id="nextArtist">Your queue is empty</small>
+        </div>
+      </aside>
+
+      <footer class="player-bar">
+        <div class="mini-track">
+          <div class="mini-cover" id="miniCover"><span>R</span></div>
+          <div>
+            <strong id="footerTitle">Nothing playing yet</strong>
+            <small id="footerArtist">Resonance offline player</small>
+          </div>
+          <button class="favorite-button" aria-label="Favorite" type="button">♡</button>
+        </div>
+        <div class="transport">
+          <div class="transport-buttons">
+            <button aria-label="Shuffle" id="shuffleControl" type="button"><svg viewBox="0 0 24 24"><path d="M4 7h3l10 10h3M17 7h3v3M4 17h3l3-3M14 10l3-3h3"/></svg></button>
+            <button aria-label="Previous track" id="previousButton" type="button"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 6l-8 6 8 6Z"/></svg></button>
+            <button class="play-button" aria-label="Play" id="playButton" type="button">
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="m9 7 8 5-8 5Z"/></svg>
+              <svg class="pause-icon" viewBox="0 0 24 24"><path d="M9 7h2v10H9zM13 7h2v10h-2z"/></svg>
+            </button>
+            <button aria-label="Next track" id="nextButton" type="button"><svg viewBox="0 0 24 24"><path d="M18 5v14M6 6l8 6-8 6Z"/></svg></button>
+            <button aria-label="Repeat" id="repeatButton" type="button"><svg viewBox="0 0 24 24"><path d="M17 3l3 3-3 3M4 11V9a3 3 0 0 1 3-3h13M7 21l-3-3 3-3M20 13v2a3 3 0 0 1-3 3H4"/></svg></button>
+          </div>
+          <div class="progress-row">
+            <span id="elapsed">0:00</span>
+            <input id="progress" aria-label="Track progress" type="range" min="0" max="100" value="0" />
+            <span id="duration">0:00</span>
+          </div>
+        </div>
+        <div class="volume-controls">
+          <button aria-label="Queue" type="button"><svg viewBox="0 0 24 24"><path d="M4 6h11M4 12h11M4 18h7M18 16v-6m0 6-3 2m3-2 3 2"/></svg></button>
+          <svg viewBox="0 0 24 24"><path d="M5 14H2v-4h3l4-3v10Zm7-4a4 4 0 0 1 0 4M15 7a7 7 0 0 1 0 10"/></svg>
+          <input id="volume" aria-label="Volume" type="range" min="0" max="100" value="78" />
+        </div>
+      </footer>
+    </div>
+    <audio id="audio"></audio>
+    <script src="js/visualizer.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
